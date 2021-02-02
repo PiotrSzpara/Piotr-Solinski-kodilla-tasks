@@ -4,9 +4,9 @@ import com.crud.tasks.domain.Task;
 import com.crud.tasks.domain.TaskDto;
 import com.crud.tasks.mapper.TaskMapper;
 import com.crud.tasks.service.DbService;
-import lombok.AllArgsConstructor;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/task")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class TaskController {
     private final DbService service;
     private final TaskMapper taskMapper;
