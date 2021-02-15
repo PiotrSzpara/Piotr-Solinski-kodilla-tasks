@@ -17,17 +17,18 @@ import java.net.URI;
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CreatedTrelloCard {
-    @JsonProperty("id")
+
+    @JsonProperty(" id ")
     private String id;
 
-    @JsonProperty("name")
+    @JsonProperty(" name ")
     private String name;
 
-    @JsonProperty("shortUrl")
+    @JsonProperty(" shortUrl ")
     private String shortUrl;
 
-    //@JsonProperty("badges")
-   // private Badges badges;
+    @JsonProperty(" badges ")
+    private Badges badges;
 
 
 
