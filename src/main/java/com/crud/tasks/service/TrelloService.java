@@ -26,7 +26,7 @@ public class TrelloService {
         return trelloClient.getTrelloBoards();
     }
 
-    public CreatedTrelloCard createTrelloCardByBuilder(final TrelloCardDto trelloCardDto) {
+    /*public CreatedTrelloCard createTrelloCardByBuilder(final TrelloCardDto trelloCardDto) {
         CreatedTrelloCard newCardByBuilder = trelloClient.createNewCard(trelloCardDto);
 
 
@@ -41,7 +41,7 @@ public class TrelloService {
         return newCardByBuilder;
 
 
-    }
+    }*/
     public CreatedTrelloCard createTrelloCard(final TrelloCardDto trelloCardDto) {
         CreatedTrelloCard newCard = trelloClient.createNewCard(trelloCardDto);
         ofNullable(newCard).ifPresent(card -> emailService.send(

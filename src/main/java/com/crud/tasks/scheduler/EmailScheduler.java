@@ -8,26 +8,32 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 @Component
 @RequiredArgsConstructor
 public class EmailScheduler {
+
+    private static final String SUBJECT = "Tasks: Once a day email";
     private final SimpleEmailService simpleEmailService;
     private final TaskRepository taskRepository;
     private final AdminConfig adminConfig;
-    private static final String SUBJECT = "Tasks: Once a day email";
 
-    //@Scheduled(cron = "0 0 10 * * *")
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(cron = "0 0 10 * * *")
+    //@Scheduled(fixedDelay = 10000)
     public void sendInformationEmail() {
         long size = taskRepository.count();
+        String taskNo = "tasks";
+        if(size == 1) taskNo = "task";
+
+
         simpleEmailService.send(
                 new Mail(
                         adminConfig.getAdminMail(),
                         SUBJECT,
-                        "Currently in database you got: " + size + " tasks",
+                        "Currently in database you got: " + size + " " + taskNo + ".",
                         null
                 )
         );
-
     }
 }

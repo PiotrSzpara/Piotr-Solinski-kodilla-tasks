@@ -38,12 +38,12 @@ public class SimpleEmailService {
         return mailMessage;
     }
 
-    private Mail createMailMessageByBuilder(final Mail mail) {
+   /* private Mail createMailMessageByBuilder(final Mail mail) {
         return  Mail.builder()
                 .mailTo(mail.getMailTo())
                 .message(mail.getMessage())
                 .subject(mail.getSubject())
                 .toCc(mail.getToCc())
                 .build();
-    }
+    }*/
 }
