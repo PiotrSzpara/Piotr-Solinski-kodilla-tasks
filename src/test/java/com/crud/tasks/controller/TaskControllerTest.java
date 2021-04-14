@@ -94,4 +94,47 @@ public class TaskControllerTest {
                 .andExpect(MockMvcResultMatchers.status().is(200));
     }
 
+    @Test
+    void shouldUpdateTask() throws Exception {
+        // Given
+        Task task = new Task(1L, "task", "content");
+        TaskDto taskDto = new TaskDto(1L, "task", "content");
+        TaskDto taskDto2 = new TaskDto(2L, "updatedTask", "updatedContent");
+
+        when(service.saveTask(task)).thenReturn(new Task(2L, "updatedTask", "updatedContent"));
+        when(taskMapper.mapToTaskDto(any())).thenReturn(taskDto2);
+        when(taskMapper.mapToTask(any())).thenReturn(task);
+
+        Gson gson = new Gson();
+        String jsonContent = gson.toJson(taskDto);
+
+        //When & Then
+        mockMvc
+                .perform(MockMvcRequestBuilders
+                        .put("/v1/task/updateTask")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonContent))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(2)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title", Matchers.is("updatedTask")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content", Matchers.is("updatedContent")))
+                .andExpect(MockMvcResultMatchers.status().is(200));
+    }
+
+    @Test
+    void shouldDeleteTask() throws Exception {
+        // Given
+        Task task = new Task(1L, "task", "content");
+
+        when(service.saveTask(task)).thenReturn(task);
+
+        //When & Then
+        mockMvc
+                .perform(MockMvcRequestBuilders
+                        .delete("/v1/task/deleteTask")
+                        .param("taskId", "1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().is(200));
+    }
+
+
 }
