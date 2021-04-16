@@ -13,7 +13,7 @@ public final class Mail {
     private final String message;
     private final String toCc;
 
-   /* public static class MailBuilder {
+  /* public static class MailBuilder {
         private String mailTo;
         private String subject;
         private String message;

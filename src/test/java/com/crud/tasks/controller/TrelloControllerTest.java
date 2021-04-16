@@ -1,9 +1,7 @@
 package com.crud.tasks.controller;
 
-import com.crud.tasks.domain.CreatedTrelloCardDto;
-import com.crud.tasks.domain.TrelloBoardDto;
-import com.crud.tasks.domain.TrelloCardDto;
-import com.crud.tasks.domain.TrelloListDto;
+import com.crud.tasks.domain.*;
+import com.crud.tasks.mapper.TrelloMapper;
 import com.crud.tasks.trello.facade.TrelloFacade;
 import com.google.gson.Gson;
 import org.hamcrest.Matchers;
@@ -32,6 +30,9 @@ class TrelloControllerTest {
 
     @MockBean
     private TrelloFacade trelloFacade;
+
+    @MockBean
+    private TrelloMapper trelloMapper;
 
     @Test
     void shouldFetchEmptyTrelloBoards() throws Exception {
