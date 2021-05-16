@@ -1,3 +1,4 @@
+
 package com.crud.tasks.scheduler;
 
 import com.crud.tasks.config.AdminConfig;
@@ -28,12 +29,11 @@ public class EmailScheduler {
 
 
         simpleEmailService.send(
-                new Mail(
-                        adminConfig.getAdminMail(),
-                        SUBJECT,
-                        "Currently in database you got: " + size + " " + taskNo + ".",
-                        null
-                )
+                Mail.builder()
+                        .mailTo(adminConfig.getAdminMail())
+                        .subject(SUBJECT)
+                        .message("Currently in database you got: " + size + " " + taskNo + ".")
+                .build()
         );
     }
 }

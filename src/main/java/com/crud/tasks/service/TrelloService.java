@@ -7,49 +7,37 @@ import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
 import com.crud.tasks.trello.client.TrelloClient;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Optional.ofNullable;
 
 @Service
 @RequiredArgsConstructor
 public class TrelloService {
-    private static final String SUBJECT = "Tasks: New Trello card";
+    private static final String SUBJECT = "Tasks: New Trello Card";
     private final TrelloClient trelloClient;
     private final SimpleEmailService emailService;
     private final AdminConfig adminConfig;
 
-    public List<TrelloBoardDto> fetchTrelloBoards() {
+    public List<TrelloBoardDto> fetchTrelloBoards(){
         return trelloClient.getTrelloBoards();
     }
 
-    /*public CreatedTrelloCard createTrelloCardByBuilder(final TrelloCardDto trelloCardDto) {
-        CreatedTrelloCard newCardByBuilder = trelloClient.createNewCard(trelloCardDto);
-
-
-        ofNullable(newCardByBuilder).ifPresent(card -> emailService.send(
-        Mail.builder()
-                .mailTo(adminConfig.getAdminMail())
-                .message("New card: " + trelloCardDto.getName() + " has been created on your Trello account")
-                .subject(SUBJECT)
-                .toCc(null)
-                .build()));
-
-        return newCardByBuilder;
-
-
-    }*/
-    public CreatedTrelloCardDto createTrelloCard(final TrelloCardDto trelloCardDto) {
+    public CreatedTrelloCardDto createTrelloCard(final TrelloCardDto trelloCardDto){
         CreatedTrelloCardDto newCard = trelloClient.createNewCard(trelloCardDto);
-        ofNullable(newCard).ifPresent(card -> emailService.send(
-                new Mail(
-                        adminConfig.getAdminMail(),
-                        SUBJECT,
-                        "New card: " + trelloCardDto.getName() + " has been created on your Trello account",
-                        null
-                )));
+        Optional.ofNullable(newCard).ifPresent(card -> emailService.send(
+                Mail.builder()
+                        .mailTo(adminConfig.getAdminMail())
+                        .subject(SUBJECT)
+                        .message(
+                                "New Card: " + trelloCardDto.getName() + " has been created on your Trello account"
+                        )
+                        .build()
+        ));
         return newCard;
     }
 }
