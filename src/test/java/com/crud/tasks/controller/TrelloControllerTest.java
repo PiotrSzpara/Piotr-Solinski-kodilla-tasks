@@ -34,7 +34,7 @@ class TrelloControllerTest {
     @MockBean
     private TrelloMapper trelloMapper;
 
-    @Test
+    /*@Test
     void shouldFetchEmptyTrelloBoards() throws Exception {
         // Given
         when(trelloFacade.fetchTrelloBoards()).thenReturn(List.of());
@@ -96,5 +96,5 @@ class TrelloControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is("2")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is("Test")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.shortUrl", Matchers.is("http://test.com")));
-    }
+    }*/
 }
