@@ -5,6 +5,7 @@ import com.crud.tasks.domain.TrelloCardDto;
 
 import com.crud.tasks.trello.facade.TrelloFacade;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,7 +15,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
 public class TrelloController {
-    private final TrelloFacade trelloFacade;
+    @Autowired
+    private TrelloFacade trelloFacade;
 
     @GetMapping("/boards")
     public List<TrelloBoardDto> getTrelloBoards(){
